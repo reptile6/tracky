@@ -1,0 +1,4 @@
+python-dotenv
+Flask
+Flask-Login
+Flask-SQLAlchemy

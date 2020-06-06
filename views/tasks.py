@@ -6,12 +6,6 @@ from flask_login import login_required, current_user
 tasks = Blueprint('tasks', __name__)
 
 
-@tasks.route('/tasks', method=['GET'])
-@login_required
-def tasks():
-    return render_template(url_for('tasks.html'))
-
-
 @tasks.route('/tasks', methods=['GET'])
 @login_required
 def get_all_tasks():
@@ -20,7 +14,7 @@ def get_all_tasks():
 
     tasks_list = [x for x in tasks_list if x.status != 'closed']
 
-    return tasks_list
+    return render_template('tasks.html', tasks=tasks_list, username=current_user.username)
 
 
 @tasks.route('/tasks', methods=['POST'])
@@ -36,4 +30,16 @@ def create_task():
     db.session.add(task)
     db.session.commit()
 
-    return
+
+@tasks.route('/tasks/<int:identifier>', methods=['DELETE'])
+@login_required
+def remove_task(identifier):
+    task = Task.query.filter_by(id=identifier).first()
+
+    if not task:
+        flash('There is no task associated with that id.')
+        return redirect(url_for('tasks.tasks'))
+
+    Task.query.filter_by(id=task.id).delete()
+    db.session.commit()
+

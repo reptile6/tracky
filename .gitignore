@@ -1,3 +1,5 @@
 venv
 .env
 .idea
+.py[cod]
+__pycache__/

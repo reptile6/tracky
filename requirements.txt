@@ -1,4 +1,5 @@
 python-dotenv
 Flask
+Flask-WTF
 Flask-Login
 Flask-SQLAlchemy

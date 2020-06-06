@@ -25,8 +25,14 @@ def create_app():
         return User.query.get(int(id))
 
     # Import and register blueprints for routing
-    from views import auth, main
+    from views import auth, main, tasks
     app.register_blueprint(auth)
     app.register_blueprint(main)
+    app.register_blueprint(tasks)
 
     return app
+
+
+if __name__ == '__main__':
+    app = create_app()
+    app.run(debug=True)

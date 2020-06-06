@@ -14,7 +14,7 @@ def get_all_tasks():
 
     tasks_list = [x for x in tasks_list if x.status != 'closed']
 
-    return render_template('tasks.html', tasks=tasks_list, username=current_user.username)
+    return render_template('tasks.html', tasks=tasks_list, user=current_user)
 
 
 @tasks.route('/tasks', methods=['POST'])

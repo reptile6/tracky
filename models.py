@@ -8,18 +8,16 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(100), unique=True)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
+    tasks = db.relationship('Task', backref='owner')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
-
-    def is_active(self):
-        return True
 
 
 class Task(db.Model):
     __tablename__ = 'task'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     type = db.Column(db.String(100))
     description = db.Column(db.String(100))
     status = db.Column(db.String(100))

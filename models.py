@@ -5,12 +5,15 @@ from app import db
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.Integer, unique=True)
+    username = db.Column(db.String(100), unique=True)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+    def is_active(self):
+        return True
 
 
 class Task(db.Model):

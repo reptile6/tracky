@@ -24,9 +24,9 @@ def login_post():
         flash('Please check your login credentials and try again')
         return redirect(url_for('auth.login'))
 
-    login_user(username)
+    login_user(user)
 
-    return redirect(url_for('main.home'))
+    return redirect(url_for('main.index'))
 
 
 @auth.route('/register', methods=['GET'])
@@ -47,7 +47,7 @@ def register_post():
         sleep(2)
         return redirect(url_for('auth.login'))
 
-    user = U3ser(username=username, email=email, password=generate_password_hash(password, method='sha256'))
+    user = User(username=username, email=email, password=generate_password_hash(password, method='sha256'))
     db.session.add(user)
     db.session.commit()
     return redirect(url_for('auth.login'))

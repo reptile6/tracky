@@ -1,4 +1,5 @@
 python-dotenv
+pymysql
 Flask
 Flask-WTF
 Flask-Login

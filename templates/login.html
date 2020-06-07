@@ -13,19 +13,15 @@
             <h3 class="title" style="text-align: center">Login</h3>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="username" placeholder="Username">
+                    {{form.username(class='input is-large', placeholder='Username')}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Password">
+                    {{form.password(class='input is-large', placeholder='Password')}}
                 </div>
             </div>
             <button class="button is-block is-info is-large is-fullwidth">Login</button>
-        </form>
-        <br/>
-        <form method="GET" action="/register">
-            <button class="button is-block is-info is-large is-fullwidth">Register</button>
         </form>
     </div>
 </div>

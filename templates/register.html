@@ -11,19 +11,25 @@
         {% endwith %}
         <h3 class="title" style="text-align: center">Sign Up</h3>
         <form action="/register" method="POST">
+            {{ form.csrf_token() }}
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="username" placeholder="Username">
+                    {{form.username(class='input is-large', placeholder='Username')}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Email">
+                    {{form.email(class='input is-large', placeholder='Email')}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Password">
+                    {{form.password(class='input is-large', placeholder='Password')}}
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    {{form.confirm(class='input is-large', placeholder='Confirm Password')}}
                 </div>
             </div>
             <button class="button is-block is-info is-large is-fullwidth">Register</button>
@@ -31,3 +37,6 @@
     </div>
 </div>
 {% endblock %}
+
+
+

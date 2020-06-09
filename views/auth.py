@@ -2,7 +2,7 @@ from app import db
 from time import sleep
 from models import User
 from forms import RegistrationForm, LoginForm
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 from flask import Blueprint, flash, render_template, redirect, request, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -11,6 +11,8 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
     form = LoginForm(request.form)
     return render_template('login.html', form=form)
 
@@ -18,11 +20,9 @@ def login():
 @auth.route('/login', methods=['POST'])
 def login_post():
     form = LoginForm(request.form)
-    username = form.username.data
-    password = form.password.data
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=form.username.data).first()
 
-    if not user and not check_password_hash(password, form.password.data):
+    if not user and not check_password_hash(user.password, form.password.data):
         flash('Please check your login credentials and try again')
         return redirect(url_for('auth.login'))
 
@@ -33,6 +33,8 @@ def login_post():
 
 @auth.route('/register', methods=['GET'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
     form = RegistrationForm(request.form)
     return render_template('register.html', form=form)
 
